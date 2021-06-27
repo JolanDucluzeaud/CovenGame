@@ -27,6 +27,6 @@ public class PlayerBug : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        transform.position = GameObject.FindWithTag("Player").transform.position;
+        transform.position = player.transform.position;
     }
 }

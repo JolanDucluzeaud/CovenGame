@@ -16690,15 +16690,17 @@ MonoBehaviour:
   damagePower: 15
   armorPower: 15
   MaxHealth: 100
-  MaxMana: 100
   health: 100
-  mana: 100
   healthBar: {fileID: 7078020157933474803}
+  MaxMana: 100
+  mana: 100
   manaBar: {fileID: 7078020157530616609}
+  Coins: 100
+  status: 0
+  buff: 0
   equipement: {fileID: 8041113630131324986}
   inventoryUI: {fileID: 8041113629455764868}
   targetSpell: {fileID: 1463384397}
-  status: 0
 --- !u!143 &7078020157475417733
 CharacterController:
   m_ObjectHideFlags: 0
@@ -17624,7 +17626,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Inventory
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -17815,7 +17817,7 @@ MonoBehaviour:
     varius morbi enim nunc faucibus a pellentesque sit. Accumsan lacus vel facilisis
     volutpat. Leo a diam sollicitudin tempor id eu. Nunc sed id semper risus in.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -18300,6 +18302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8777330322852717451}
+  - component: {fileID: 5089779529270286310}
   m_Layer: 0
   m_Name: CameraFollow
   m_TagString: Untagged
@@ -18321,6 +18324,23 @@ Transform:
   m_Father: {fileID: 7221340445419161292}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5089779529270286310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777330322852717452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26cbbb787babda4dbd5de1c806ca093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistance: 1
+  maxDistance: 4
+  smooth: 10
+  dollyDirAdjusted: {x: 0, y: 0, z: 0}
+  distance: 0
 --- !u!1 &8777330323842319261
 GameObject:
   m_ObjectHideFlags: 0
@@ -18369,9 +18389,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb05ad5fb0c74c4d8c46df5f57cc024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  player: {fileID: 0}
-  UI: {fileID: 0}
+  camera: {fileID: 8777330322493942924}
+  player: {fileID: 8033448063625239670}
+  UI: {fileID: 8041113630131324986}
 --- !u!114 &6987616431251757728
 MonoBehaviour:
   m_ObjectHideFlags: 0
