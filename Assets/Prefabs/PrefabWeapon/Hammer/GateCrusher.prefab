@@ -167,6 +167,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 499426}
+  - component: {fileID: -6352871721798582162}
+  - component: {fileID: -2119552588363765832}
+  - component: {fileID: -826844314751309339}
   m_Layer: 0
   m_Name: GateCrusher
   m_TagString: Untagged
@@ -189,6 +192,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 115.603, y: -73.87799, z: -82.893005}
+--- !u!114 &-6352871721798582162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2768c345aeb6cc749afb66cce162f627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &-2119552588363765832
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148894}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &-826844314751309339
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148894}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.54980266, y: 0.61122715, z: 0.24471666}
+  m_Center: {x: -0.029253004, y: 0.33476803, z: -0.011127825}
 --- !u!1 &160222
 GameObject:
   m_ObjectHideFlags: 0

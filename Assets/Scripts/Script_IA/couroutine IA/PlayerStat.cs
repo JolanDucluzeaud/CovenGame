@@ -6,77 +6,100 @@ using UnityEngine;
 { 
 public class PlayerStat : MonoBehaviour 
 { 
+    public Coroutine coroutine;
     protected UnarmedCharacter player;
-    protected float health;
     protected bool isHiting;
-    //protected GameObject weapon;
+    protected GameObject weapon;
     protected Animator animator;
     protected GameObject HitFrom;
     protected float death;
-    protected int stability; 
+    protected int stability;
+    protected float DOT_Time;
     protected int knockBack=10; 
     public int GetDamage() 
     { 
-        return player.equipement.GetComponent<EquipmentManager>().currentEquipment[2].damageModifier; 
+        //Debug.Log("Les dégats du joueurs sont de : "+ player.equipement.GetComponent<EquipmentManager>().currentEquipment[2].damageModifier);
+        return (int)player.damagePower;
     } 
     public int GetKnockBack() 
     { 
         return knockBack; 
     } 
-    public void SetIsHiting(bool isHiting)
+    public IEnumerator GetOverTime()
     {
-        this.isHiting = isHiting;
+        return OverTime();
     }
+    public void SetDOT_Time(float time)
+    {
+        DOT_Time = time;
+    }
+    /*public void SetIsHiting(bool isHiting)
+    {
+        PlayerWeapon script = weapon.GetComponent<PlayerWeapon>();
+        script.SetIsHiting(isHiting);
+        script.SetPlayer(gameObject);
+    }*/
     public void SetHitFrom(GameObject mob)
     {
         HitFrom = mob;
     }
     public void TakeDamage(int dammage,int KB) 
-    { 
-        health-=dammage;
-        player.health = health;
-        if (health<=0) 
+    {
+            float TrueDamage = dammage - player.armorPower < 0 ? 1 : dammage - player.armorPower;
+        player.health-= (TrueDamage );
+        if (player.health<=0) 
         { 
-            //joue l'animation de mort ou qqchose
             gameObject.tag = "dead";
-            enemy_couroutine script = HitFrom.GetComponent<enemy_couroutine>(); 
-            script.SetTarget(null);
-            animator.SetBool("Dead",true);
-            death = Time.time + 4;
+            if (HitFrom!=null)
+            {
+                enemy_couroutine script = HitFrom.GetComponent<enemy_couroutine>(); 
+                script.SetTarget(null);
+            }
+            animator.SetTrigger("Dead");
+            death = Time.time + 3;
         } 
         else 
         { 
             this.gameObject.GetComponent<Rigidbody>().AddForce(0,(KB-stability)/2,stability-KB,ForceMode.Impulse); 
         } 
     } 
-    public void OnCollisionEnter(Collision collision) 
-    { 
-        if (/*bool anim attack is true*/true && collision.gameObject.tag=="mob") 
-        { 
-            ApplyDamage(collision.gameObject); 
-        } 
-    } 
     public void ApplyDamage(GameObject OurTarget) 
     { 
         OurTarget.SendMessage("TakeDamage",this); 
     } 
- 
-    // Update is called once per frame 
+  
     void Start() 
     { 
         player = gameObject.GetComponent<UnarmedCharacter>();
         animator = gameObject.GetComponent<Animator>();
-        //weapon = player.Weapon;
-        health = player.MaxHealth ; 
+        
     } 
+    IEnumerator OverTime()
+    {
+        
+        yield return new WaitForSeconds(DOT_Time);
+        
+        player.status= Status.Healthy;
+    }
     void Update()
     {
-        if (tag=="dead" && death<=Time.time)
+        if (player!=null)
         {
-            transform.position = (GameObject.FindGameObjectWithTag("Spawn")).transform.position;
-            animator.SetBool("Dead",false);
-            tag="Player";
-            health = 100;
+            if (tag=="dead" && death<=Time.time && GameObject.FindGameObjectsWithTag("Player").Length==0)
+            {
+                transform.position = (GameObject.FindGameObjectWithTag("Spawn")).transform.position;
+                animator.SetTrigger("Revive");
+                tag="Player";
+                player.health = player.MaxHealth;
+            }
+            if(tag=="Player" && player.status==Status.Stunned)
+            {
+                animator.SetBool("IsDead",true);
+            }
+            if (tag=="Player" && player.status!=Status.Stunned)
+            {
+                animator.SetBool("IsDead", false);
+            }
         }
     }
 } }

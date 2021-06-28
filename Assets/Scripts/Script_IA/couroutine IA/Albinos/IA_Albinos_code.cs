@@ -34,10 +34,25 @@ namespace Coven
                 animator.Play("Hit");
             }
         }
+
+        public override void TakeDamage(float damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                animator.SetBool("Dead", true);
+                Destroy(this.gameObject, 5);
+            }
+            else
+            {
+                animator.SetTrigger("Hit");
+            }
+        }
+
         public void WalkTo(Vector3 position) 
         { 
-            animator.Play("Walk");
-            transform.position=Vector3.MoveTowards(position,target.transform.position, moveSpeed*Time.deltaTime); 
+            animator.SetTrigger("Walk");
+            transform.position=Vector3.MoveTowards(position,target.transform.position, moveSpeed); 
         }  
         public override void chase()
         {}
@@ -49,8 +64,9 @@ namespace Coven
             GameObject[] listPlayer = GameObject.FindGameObjectsWithTag("Player");
             foreach (var player in listPlayer)
             {
-                Animator animationPlayer = player.GetComponent<Animator>();
-                animationPlayer.SetTrigger("Dead");
+                player.GetComponent<UnarmedCharacter>().status = Status.Stunned;
+                player.GetComponent<PlayerStat>().SetDOT_Time(2);
+                StartCoroutine(player.GetComponent<PlayerStat>().GetOverTime());
             }
             allow_action = Time.time + 6;
             
@@ -62,7 +78,7 @@ namespace Coven
             System.Random random = new System.Random();
             switch (random.Next(15)) 
             { 
-                case 1 : for (int i = 0; i < 10; i++) 
+                case 1 : for (int i = 0; i < 20; i++) 
                 { 
                     WalkTo(transform.position); 
                     yield return new WaitForFixedUpdate(); 
@@ -74,7 +90,7 @@ namespace Coven
                 case 3 : 
                          FireAttack();
                          break;
-                case 4 : for (int i = 0; i < 10; i++) 
+                case 4 : for (int i = 0; i < 20; i++) 
                 { 
                     WalkTo(transform.position); 
                     yield return new WaitForFixedUpdate(); 
@@ -93,9 +109,9 @@ namespace Coven
                 System.Random random = new System.Random();
                 if (random.Next(2)==1)
                 {
-                    animator.SetTrigger("Basic attack");
+                    animator.SetTrigger("Basic Attack");
                 }
-                else {animator.Play("Claw Attack");}
+                else {animator.SetTrigger("Claw Attack");}
                 HitboxHit script = weapon.GetComponent<HitboxHit>(); 
                 script.SetIsHiting(true);
                 allow_action = Time.time + 1;

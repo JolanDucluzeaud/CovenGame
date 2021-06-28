@@ -16604,6 +16604,8 @@ GameObject:
   - component: {fileID: 3144149033720219756}
   - component: {fileID: 8932264772882679557}
   - component: {fileID: 6217129145861907743}
+  - component: {fileID: 6586968108602622686}
+  - component: {fileID: 5073956967665862545}
   m_Layer: 0
   m_Name: Ybot
   m_TagString: Player
@@ -16821,6 +16823,12 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: isSpecialSword
+  - Type: 4
+    SynchronizeType: 0
+    Name: AnimCanAttack
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsDead
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -16840,6 +16848,34 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &6586968108602622686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033448063625239670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90205ad78aec5d94891423db7da843fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &5073956967665862545
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033448063625239670}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &8041113629428275396
 GameObject:
   m_ObjectHideFlags: 0
@@ -18181,8 +18217,6 @@ MonoBehaviour:
   CameraFollowObj: {fileID: 8777330322852717452}
   clampAngle: 66
   inputSensivity: 10
-  CameraObj: {fileID: 0}
-  PlayerObj: {fileID: 0}
   camDistanceXToPlayer: 0
   camDistanceYToPlayer: 0
   camDistanceZToPlayer: 0

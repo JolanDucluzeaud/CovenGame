@@ -12,11 +12,12 @@ public class Special3Collision : MonoBehaviour
         Destroy(gameObject, 2);
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("mob"))
         {
-            Debug.Log("Ennemi touché ! special 3"); //il faut appliquer les dégâts et les debuffs ( knockback)
+            col.gameObject.GetComponent<Coven.enemy_couroutine>().TakeDamage(50);
+            col.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3 (0,3, -col.transform.forward.z), ForceMode.Impulse);
         }
     }
 }

@@ -13,13 +13,13 @@ public class Special1Collision : MonoBehaviour
         animator.SetBool("isSpecialSword", true);
     }
 
-    private void OnCollisionStay(Collision col)
+    private void OnTriggerStay(Collider col)
     {
         if (col.gameObject.CompareTag("mob"))
         {
             //col.gameObject.GetComponent<>().ApplyDamage.... //il faut ajouter les damages
             //ATTENTION !!! l'ennemi est touché 200 fois maximum durant l'anim !
-            Debug.Log("Spinning !!");
+            col.gameObject.GetComponent<Coven.enemy_couroutine>().TakeDamage(0.3f);
         }
     }
 

@@ -86,7 +86,7 @@ public class UnarmedCharacter : MonoBehaviourPunCallbacks
         //If is dead;
         if (health <= 0)
         {
-            animator.SetTrigger("Dead");
+            animator.SetBool("IsDead",true);
             return;
         }
         
@@ -231,5 +231,6 @@ public enum Status
     Healthy,
     Poisoned,
     Burned,
-    Stunned
+    Stunned,
+    Bleeding
 }

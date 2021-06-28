@@ -25,10 +25,25 @@ namespace Coven
             health-=player.GetDamage();
             if (health<=0)
             {
-                animator.SetBool("Dead",true);
-                Destroy(this.gameObject,3);
+                animator.SetBool("dead",true);
+                Destroy(this.gameObject,4);
             }
         }
+
+        public override void TakeDamage(float damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                animator.SetTrigger("Fall1");
+                Destroy(this.gameObject, 5);
+            }
+            else
+            {
+                animator.SetTrigger("Hit1");
+            }
+        }
+
         public void JumpForward() 
         { 
             if (Time.time > allow_jump) 

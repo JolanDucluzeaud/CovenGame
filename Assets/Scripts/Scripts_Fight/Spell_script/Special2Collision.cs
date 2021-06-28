@@ -16,7 +16,7 @@ public class Special2Collision : MonoBehaviour
     {
         if (col.gameObject.CompareTag("mob"))
         {
-            Debug.Log("Ennemi touché ! special 2"); //il faut appliquer les dégâts
+            col.gameObject.GetComponent<Coven.enemy_couroutine>().TakeDamage(30);
             Destroy(gameObject);
         }
     }

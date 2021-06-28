@@ -1,6 +1,7 @@
 ﻿using System.Collections; 
 using System.Collections.Generic; 
-using UnityEngine; 
+using UnityEngine;
+using UnityEngine.UI;
  
 namespace Coven 
 { 
@@ -9,22 +10,41 @@ public class IA_Skeleton : MonoBehaviour
     public Animator animator; 
     public GameObject Weapon;
     CapsuleCollider playerCollider; 
-    IA_Skeleton_code Skeleton; 
-    void Start() 
+    public IA_Skeleton_code Skeleton;
+    public Image pvBar;
+        private float MaxHp;
+        private bool drop = false;
+        public GameObject[] dropItem;
+    void Awake() 
     { 
         Skeleton = gameObject.AddComponent<IA_Skeleton_code>(); 
         Skeleton.SetTarget(null); 
         Skeleton.SetAnimator(animator);
         Skeleton.SetWeapon(Weapon);
-        ((enemy_couroutine)Skeleton).SetAttackRange(2); 
-        ((enemy_couroutine)Skeleton).SetMoveSpeed(3); 
-        ((enemy_couroutine)Skeleton).SetAttackDelay(1); 
-        ((enemy_couroutine)Skeleton).SetAttackDammage(27); 
+        ((enemy_couroutine)Skeleton).SetAttackRange(2.5f); 
+        ((enemy_couroutine)Skeleton).SetMoveSpeed(1.5f); 
+        ((enemy_couroutine)Skeleton).SetAttackDelay(1.5f); 
+        ((enemy_couroutine)Skeleton).SetAttackDammage(15);
+        ((enemy_couroutine)Skeleton).SetHealth(300);  
         Skeleton.StartCoroutine("CheckEntity");
+        MaxHp = Skeleton.GetHealth();
     } 
     // Update is called once per frame 
     void Update() 
-    { 
+    {
+
+            if (Skeleton.GetHealth() <= 0 && !drop)
+            {
+                animator.SetBool("Dead", true);
+                Skeleton.GetTarget().gameObject.GetComponent<UnarmedCharacter>().Coins += 200;
+                drop = true;
+                return;
+            }
+            if (Skeleton.GetHealth() <= 0)
+            {
+                return;
+            }
+        pvBar.fillAmount = Skeleton.GetHealth() / MaxHp;
         if (Time.time>Skeleton.GetAllow_action()) 
         { 
             if (Skeleton.GetTarget()!=null)

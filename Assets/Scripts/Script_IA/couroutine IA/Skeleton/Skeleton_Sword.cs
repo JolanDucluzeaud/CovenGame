@@ -12,13 +12,21 @@ public class Skeleton_Sword : MonoBehaviour
     {
         this.IsHiting = IsHiting;
     }
-    void OnCollisionEnter(Collision collision) 
+    void OnTriggerEnter(Collider collision) 
     {
         IA_Skeleton_code script = holder.GetComponent<IA_Skeleton_code>();
+        Debug.Log(collision.gameObject.tag + "  test");
         if (IsHiting && collision.gameObject == script.GetTarget())
         {
             Debug.Log("hit");
             script.ApplyDamage(collision.gameObject);
+            if (Random.Range(0,10)==1)
+            {
+                collision.gameObject.GetComponent<UnarmedCharacter>().status = Status.Bleeding;
+                if (collision.gameObject.GetComponent<PlayerStat>().coroutine!=null){ StopCoroutine(collision.gameObject.GetComponent<PlayerStat>().coroutine); }
+                collision.gameObject.GetComponent<PlayerStat>().SetDOT_Time(5);
+                collision.gameObject.GetComponent<PlayerStat>().coroutine = StartCoroutine(collision.gameObject.GetComponent<PlayerStat>().GetOverTime());
+            }
             IsHiting = false;
         }
     }

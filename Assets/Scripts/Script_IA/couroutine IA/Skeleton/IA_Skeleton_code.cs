@@ -25,14 +25,32 @@ namespace Coven
             health-=player.GetDamage();
             if (health<=0)
             {
-                animator.Play("Fall1");
-                Destroy(this.gameObject);
+                animator.SetTrigger("Fall1");
+                Destroy(this.gameObject,5);
             }
             else
             {
-                animator.Play("Hit1");
+                animator.SetTrigger("Hit1");
             }
         }
+
+        public override void TakeDamage(float damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                animator.Play("Fall1");
+                Destroy(this.gameObject, 5);
+            }
+            else
+            {
+                animator.SetTrigger("Hit1");
+            }
+        }
+
+
+
+
         public void JumpForward() 
         { 
             if (Time.time > allow_jump) 
@@ -57,7 +75,7 @@ namespace Coven
             if(target==null){}
             else{
             transform.LookAt (new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z)); 
-             transform.position=Vector3.MoveTowards(position,target.transform.position, moveSpeed*Time.deltaTime);}
+             transform.position=Vector3.MoveTowards(position,new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z), moveSpeed*Time.deltaTime);}
         }  
         public override void chase() 
         { 
@@ -92,7 +110,7 @@ namespace Coven
             transform.LookAt (new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z)); 
             if (Time.time > attackAllowed ) 
             { 
-                animator.Play("Attack1h1");
+                animator.SetTrigger("Attack1h1");
                 Skeleton_Sword script = weapon.GetComponent<Skeleton_Sword>(); 
                 script.SetIsHiting(true);
                 attackAllowed = Time.time + attack_delay;

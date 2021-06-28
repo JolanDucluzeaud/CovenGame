@@ -16,7 +16,7 @@ public class Spell2Collision : MonoBehaviour
     {
         if (col.gameObject.CompareTag("mob"))
         {
-            Debug.Log("Ennemi touché ! spell 2"); //il faut appliquer les dégâts
+            col.gameObject.GetComponent<Coven.enemy_couroutine>().TakeDamage(25); ;
             Destroy(gameObject);
         }
     }

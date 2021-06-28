@@ -12,12 +12,12 @@ namespace Coven
         protected GameObject target;
         protected GameObject weapon;  
         protected int ViewDistance; 
-        protected int attackRange; 
+        protected float attackRange; 
         protected float moveSpeed; 
         public Collision collision; 
-        protected int attack_delay; 
+        protected float attack_delay; 
         protected int attack_dammage; 
-        protected int health; 
+        protected float health; 
         protected int KbForces=10; 
         protected int fightingRange=6; 
         protected float attackTime; 
@@ -39,7 +39,7 @@ namespace Coven
         { 
              this.attack_dammage=attack_dammage; 
         } 
-        public void SetAttackDelay(int attack_delay) 
+        public void SetAttackDelay(float attack_delay) 
         { 
              this.attack_delay=attack_delay; 
         } 
@@ -47,6 +47,11 @@ namespace Coven
         { 
              this.health=health; 
         } 
+
+        public float GetHealth()
+        {
+            return health;
+        }
         public void SetFightingRange(int fightingRange) 
         { 
              this.fightingRange=fightingRange; 
@@ -75,11 +80,11 @@ namespace Coven
         { 
             return fightingRange; 
         } 
-        public int GetAttackRange() 
+        public float GetAttackRange() 
         { 
             return attackRange; 
         } 
-        public void SetAttackRange(int attackRange) 
+        public void SetAttackRange(float attackRange) 
         { 
             this.attackRange=attackRange; 
         } 
@@ -100,6 +105,8 @@ namespace Coven
             this.animator=animator; 
         } 
         public abstract void TakeDamage(PlayerStat player);
+
+        public abstract void TakeDamage(float damage);
         
     } 
 } 

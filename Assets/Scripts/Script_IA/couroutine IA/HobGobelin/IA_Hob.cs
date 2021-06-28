@@ -1,6 +1,7 @@
 ﻿using System.Collections; 
 using System.Collections.Generic; 
-using UnityEngine; 
+using UnityEngine;
+using UnityEngine.UI;
  
 namespace Coven
 { 
@@ -9,8 +10,12 @@ public class IA_Hob : MonoBehaviour
     public Animator animator; 
     public GameObject Weapon;
     CapsuleCollider playerCollider; 
-    IA_Hob_Code Hob; 
-    void Start() 
+    IA_Hob_Code Hob;
+        public Image pvBar;
+        private float MaxHp;
+        private bool drop = false;
+        public GameObject[] dropItem;
+        void Awake() 
     { 
         Hob = gameObject.AddComponent<IA_Hob_Code>(); 
         Hob.SetTarget(null); 
@@ -22,11 +27,24 @@ public class IA_Hob : MonoBehaviour
         ((enemy_couroutine)Hob).SetAttackDammage(15);
         ((enemy_couroutine)Hob).SetHealth(100);
         Hob.StartCoroutine("CheckEntity");
+            MaxHp = Hob.GetHealth();
     } 
     // Update is called once per frame 
     void Update() 
-    { 
-        if (Time.time>Hob.GetAllow_action()) 
+    {
+
+            if (Hob.GetHealth() <= 0 && !drop)
+            {
+                animator.SetBool("Dead", true);
+                Hob.GetTarget().gameObject.GetComponent<UnarmedCharacter>().Coins += 200;
+                drop = true;
+                return;
+            }
+            if (Hob.GetHealth() <= 0)
+            {
+                return;
+            }
+            if (Time.time>Hob.GetAllow_action()) 
         { 
             if (Hob.GetTarget()!=null)
             {
